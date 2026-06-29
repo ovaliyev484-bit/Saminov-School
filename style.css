@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* subtle pattern similar to background */
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 45px 35px;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.logo-saminov {
+    color: #106f75; /* Dark Teal */
+}
+
+.logo-school {
+    color: #2ab6d4; /* Light Blue */
+}
+
+.role-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    background: #f1f3f5;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+.role-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.role-tab.active {
+    background: white;
+    color: #106f75;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+    border-color: #5d7bc8;
+}
+
+.input-group input::placeholder {
+    color: #c0c0c0;
+    letter-spacing: 0.5px;
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-input-wrapper input {
+    padding-right: 40px;
+    letter-spacing: 2px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #c0c0c0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: #777;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #6481cc; /* Blue from the image */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 15px;
+}
+
+.login-btn:hover {
+    background-color: #526fba;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saminov School - Kirish</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="logo">
+                <span class="logo-saminov">Saminov</span>
+                <span class="logo-school">School</span>
+            </div>
+            
+            <div class="role-tabs">
+                <div class="role-tab active" data-role="student">O'quvchi</div>
+                <div class="role-tab" data-role="teacher">O'qituvchi</div>
+                <div class="role-tab" data-role="admin">Admin</div>
+            </div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="phone" data-i18n="login.phone_label">Telefon raqam</label>
+                    <input type="text" id="phone" data-i18n-placeholder="login.phone_placeholder" placeholder="+(998)-_ _ _ - _ _ - _ _" autocomplete="off">
+                </div>
+                
+                <div class="input-group">
+                    <label for="password" data-i18n="login.password_label">Parol</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" data-i18n-placeholder="login.password_placeholder" placeholder="***************">
+                        <i class="fa-regular fa-eye-slash toggle-password"></i>
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn" data-i18n="login.button">KIRISH</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
++    <script src="landing.js"></script>
+</body>
+</html>

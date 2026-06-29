@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saminov School | Excellence in Education</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-text">Saminov<span class="logo-accent">School</span></span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a data-i18n="nav.home" href="#home">Home</a></li>
+                <li><a data-i18n="nav.about" href="#about">About</a></li>
+                <li><a data-i18n="nav.courses" href="#courses">Courses</a></li>
+                <li><a data-i18n="nav.teachers" href="#teachers">Teachers</a></li>
+                <li><a data-i18n="nav.gallery" href="#gallery">Gallery</a></li>
+                <li><a data-i18n="nav.contact" href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+                <select id="lang-select" class="lang-select" aria-label="Language select">
+                    <option value="uz">O'zbekcha</option>
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                </select>
+                <a data-i18n="nav.login" href="login.html" class="btn-outline">Login</a>
+                <a data-i18n="nav.apply" href="#admission" class="btn-primary">Apply Now</a>
+                <div class="hamburger" id="hamburger">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <span class="close-menu" id="close-menu">&times;</span>
+        <ul class="mobile-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#teachers">Teachers</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li style="margin-top: 20px;">
+                <a href="login.html" class="btn-outline" style="display: inline-block;">Login</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-text" data-aos="fade-up" data-aos-duration="1000">
+                <div class="badge" data-i18n="hero.badge">Premium Education</div>
+                <h1 class="hero-title" data-i18n="hero.title">Shaping the <span>Future</span> of Education</h1>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">Welcome to Saminov School, where innovation meets tradition. We provide a world-class educational experience to prepare students for tomorrow's challenges.</p>
+                <div class="hero-buttons">
+                    <a href="#admission" class="btn-primary btn-large" data-i18n="hero.apply">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#about" class="btn-glass btn-large" data-i18n="hero.learn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Statistics Section -->
+    <section class="statistics">
+        <div class="container stats-container">
+            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                <h3 class="counter" data-target="1500">0</h3>
+                <p data-i18n="stat.students">Happy Students</p>
+            </div>
+            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                <h3 class="counter" data-target="120">0</h3>
+                <p data-i18n="stat.teachers">Expert Teachers</p>
+            </div>
+            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+                <h3 class="counter" data-target="50">0</h3>
+                <p data-i18n="stat.awards">Awards Won</p>
+            </div>
+            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
+                <h3 class="counter" data-target="25">0</h3>
+                <p data-i18n="stat.years">Years of Excellence</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section" id="about">
+        <div class="container about-grid">
+            <div class="about-image" data-aos="fade-right">
+                <div class="image-wrapper">
+                    <div class="decorative-img"></div>
+                    <div class="experience-badge glass-panel">
+                        <h2 class="counter" data-target="25">0</h2>
+                        <p>Years Experience</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-content" data-aos="fade-left">
+                <h4 class="section-subtitle" data-i18n="about.subtitle">About Us</h4>
+                <h2 class="section-title" data-i18n="about.title">Nurturing Young Minds for a Brighter Future</h2>
+                <p class="about-text" data-i18n="about.text">
+                    At Saminov School, we believe in creating an environment where every student can thrive. Our modern curriculum combines academic excellence with practical skills, ensuring our students are prepared for global challenges.
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fa-solid fa-check-circle"></i> International Standards</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Experienced Faculty</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Modern Facilities</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Student-Centric Approach</li>
+                </ul>
+                <a href="#about" class="btn-primary mt-4">Discover More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses section bg-light" id="courses">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle" data-i18n="courses.subtitle">Our Programs</h4>
+                <h2 class="section-title" data-i18n="courses.title">What We Offer</h2>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="course-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3 data-i18n="courses.primary">Primary Education</h3>
+                    <p>Building strong foundations for young learners with interactive and engaging methods.</p>
+                    <a href="#" class="course-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="course-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="course-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <h3 data-i18n="courses.secondary">Secondary Education</h3>
+                    <p>Comprehensive programs preparing students for higher education and future careers.</p>
+                    <a href="#" class="course-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="course-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="course-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3 data-i18n="courses.steam">STEAM Programs</h3>
+                    <p>Science, Technology, Engineering, Arts, and Mathematics for innovative thinking.</p>
+                    <a href="#" class="course-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section class="teachers section" id="teachers">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle" data-i18n="teachers.subtitle">Our Team</h4>
+                <h2 class="section-title" data-i18n="teachers.title">Meet Our Expert Teachers</h2>
+            </div>
+            <div class="teachers-grid">
+                <div class="teacher-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="teacher-img img-1"></div>
+                    <div class="teacher-info">
+                        <h3>Vaiyev Omadbek</h3>
+                        <p>IT Teacher</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="teacher-img img-2"></div>
+                    <div class="teacher-info">
+                        <h3>Roziqov Dilshodbek</h3>
+                        <p>English Teacher</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="teacher-img img-3"></div>
+                    <div class="teacher-info">
+                        <h3>Mamarasulov Jumanazar</h3>
+                        <p>Math Teacher</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="teacher-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="teacher-img img-4"></div>
+                    <div class="teacher-info">
+                        <h3>Avdusattorov Dilmuhammad</h3>
+                        <p>English Teacher</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery section bg-dark" id="gallery">
+        <div class="container">
+            <div class="section-header text-center light-text" data-aos="fade-up">
+                <h4 class="section-subtitle" data-i18n="gallery.subtitle">Campus Life</h4>
+                <h2 class="section-title" data-i18n="gallery.title">Our Photo Gallery</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item item-1" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox('gallery4.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+                <div class="gallery-item item-2" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox('gallery2.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+                <div class="gallery-item item-3" data-aos="fade-up" data-aos-delay="300" onclick="openLightbox('gallery1.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+                <div class="gallery-item item-4" data-aos="fade-up" data-aos-delay="400" onclick="openLightbox('gallery3.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+                <div class="gallery-item item-5" data-aos="fade-up" data-aos-delay="500" onclick="openLightbox('gallery1.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+                <div class="gallery-item item-6" data-aos="fade-up" data-aos-delay="600" onclick="openLightbox('gallery2.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="Rasm">
+    </div>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle" data-i18n="testimonials.subtitle">Testimonials</h4>
+                <h2 class="section-title" data-i18n="testimonials.title">What Parents Say</h2>
+            </div>
+            <div class="testimonial-content" data-aos="fade-up">
+                <div class="glass-panel-dark">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p class="testimonial-text">
+                        "Saminov School has been an incredible journey for my child. The teachers are dedicated, facilities are amazing, and the curriculum is outstanding!"
+                    </p>
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Sarvinoz Ahmedova</h4>
+                        <span>Parent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission & Contact Section -->
+    <section class="admission section bg-light" id="contact">
+        <div class="container">
+            <div class="admission-grid">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="glass-panel-blue">
+                        <h2 data-i18n="contact.title">Get In Touch</h2>
+                        <p data-i18n="contact.text">Have questions? We'd love to hear from you!</p>
+                        
+                        <div class="info-item">
+                            <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <h4 data-i18n="contact.address">Address</h4>
+                                <p>Tashkent, Uzbekistan</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <h4 data-i18n="contact.phone">Phone</h4>
+                                <p>+998 71 123 45 67</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <h4 data-i18n="contact.email">Email</h4>
+                                <p>info@saminovschool.uz</p>
+                            </div>
+                        </div>
+                        
+                        <div class="map-container">
+                            <div class="map-placeholder">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>Map Location</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="admission-form" id="contact" data-aos="fade-left">
+                    <h3 data-i18n="admission.title">Apply for Admission</h3>
+                    <form id="admission-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label data-i18n="form.name">Full Name</label>
+                                <input type="text" placeholder="Your name" required>
+                            </div>
+                            <div class="input-group">
+                                <label data-i18n="form.email">Email</label>
+                                <input type="email" placeholder="Your email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label data-i18n="form.phone">Phone</label>
+                                <input type="tel" placeholder="Your phone">
+                            </div>
+                            <div class="input-group">
+                                <label data-i18n="form.grade">Grade Applying For</label>
+                                <select>
+                                    <option>Grade 1</option>
+                                    <option>Grade 2</option>
+                                    <option>Grade 3</option>
+                                    <option>Grade 4</option>
+                                    <option>Grade 5</option>
+                                    <option>Grade 6-10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label data-i18n="form.message">Message</label>
+                            <textarea placeholder="Tell us more..." rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-full" data-i18n="form.submit">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo footer-logo">
+                    <span class="logo-text">Saminov<span class="logo-accent">School</span></span>
+                </a>
+                <p>Empowering the next generation with modern education, strong values, and global skills.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#teachers">Teachers</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Student Portal</a></li>
+                    <li><a href="#">Parent Portal</a></li>
+                    <li><a href="#">Academic Calendar</a></li>
+                    <li><a href="#">Library</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get the latest news and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Saminov School. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>

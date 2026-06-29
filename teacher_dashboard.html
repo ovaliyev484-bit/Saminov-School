@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'qituvchi Paneli</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-saminov">Saminov</span><span class="logo-school">School</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-users"></i> <span data-i18n="teacher.groups_title">Mening guruhlarim</span></a>
+                <a href="login.html" class="nav-link logout-btn" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <h2 id="welcomeText">Xush kelibsiz!</h2>
+            </header>
+            
+            <section class="content-section active-section">
+                <div class="section-header">
+                    <h3 data-i18n="teacher.students_payments">O'quvchilar va To'lovlar ro'yxati</h3>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-i18n="teacher.student_name">O'quvchi Ismi</th>
+                                <th data-i18n="teacher.phone">Telefon</th>
+                                <th data-i18n="teacher.group">Guruh</th>
+                                <th data-i18n="teacher.payment_status">To'lov holati</th>
+                            </tr>
+                        </thead>
+                        <tbody id="myStudentsTable">
+                            <!-- JS fills -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const db = JSON.parse(localStorage.getItem('schoolDB'));
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if(!user || !db) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const getText = (key, fallback) => {
+                return window.getTranslation ? window.getTranslation(key) : fallback;
+            };
+            document.getElementById('welcomeText').innerText = `${getText('teacher.welcome_prefix', "O'qituvchi:")} ${user.name}`;
+
+            function renderMyStudents() {
+                const tbody = document.getElementById('myStudentsTable');
+                tbody.innerHTML = '';
+                
+                const myGroups = db.groups.filter(g => g.teacherId == user.id);
+                const myGroupIds = myGroups.map(g => g.id);
+                const myStudents = db.students.filter(s => myGroupIds.includes(Number(s.groupId)));
+                
+                myStudents.forEach(st => {
+                    const group = db.groups.find(g => g.id == st.groupId);
+                    const paymentText = st.payment ? getText('teacher.payment_paid', 'To'langan') : getText('teacher.payment_unpaid', 'To'lanmagan');
+                    const paymentBtn = `<button onclick="togglePayment(${st.id})" style="background:${st.payment ? '#27ae60' : '#e74c3c'}; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">${paymentText}</button>`;
+                    
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${st.name}</td>
+                            <td>${st.phone}</td>
+                            <td>${group ? group.name : ''}</td>
+                            <td>${paymentBtn}</td>
+                        </tr>
+                    `;
+                });
+            }
+            
+            window.togglePayment = function(id) {
+                const student = db.students.find(s => s.id === id);
+                if(student) {
+                    student.payment = !student.payment;
+                    localStorage.setItem('schoolDB', JSON.stringify(db));
+                    renderMyStudents();
+                }
+            };
+            
+            renderMyStudents();
+        });
+    </script>
+    <script src="landing.js"></script>
+</body>
+</html>

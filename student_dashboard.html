@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'quvchi Paneli</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-saminov">Saminov</span><span class="logo-school">School</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-user"></i> <span data-i18n="student.profile">Mening profilim</span></a>
+                <a href="login.html" class="nav-link logout-btn" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <h2 id="welcomeText">Xush kelibsiz!</h2>
+            </header>
+            
+            <section class="content-section active-section">
+                <div class="glass-panel-dark" style="margin: 20px; padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h3 style="margin-bottom: 20px; color: #106f75;" data-i18n="student.info">Ma'lumotlaringiz</h3>
+                    <p style="margin-bottom: 10px;"><strong data-i18n="student.group_label">Guruh:</strong> <span id="studentGroupName"></span></p>
+                    <p style="margin-bottom: 10px;"><strong data-i18n="student.teacher_label">O'qituvchi:</strong> <span id="studentTeacherName"></span></p>
+                    <div style="margin-top:25px; padding: 15px; background: #f8f9fa; border-radius: 6px;">
+                        <p style="font-size:1.2rem; margin: 0;"><strong data-i18n="student.payment_status">Joriy oylik to'lov holati:</strong> <span id="paymentStatusBadge" style="font-weight: 700; margin-left: 10px;"></span></p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const db = JSON.parse(localStorage.getItem('schoolDB'));
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if(!user || !db) {
+                window.location.href = 'login.html';
+                return;
+            }
+            const getText = (key, fallback) => {
+                return window.getTranslation ? window.getTranslation(key) : fallback;
+            };
+
+            document.getElementById('welcomeText').innerText = `${getText('student.welcome_prefix', "O'quvchi:")} ${user.name}`;
+            const currentStudent = db.students.find(s => s.id === user.id);
+            const group = db.groups.find(g => g.id == currentStudent.groupId);
+            let teacherName = getText('student.unassigned', 'Biriktirilmagan');
+            if(group) {
+                const teacher = db.teachers.find(t => t.id == group.teacherId);
+                if(teacher) teacherName = teacher.name;
+            }
+            document.getElementById('studentGroupName').innerText = group ? group.name : getText('student.no_group', "Guruh yo'q");
+            document.getElementById('studentTeacherName').innerText = teacherName;
+            const badge = document.getElementById('paymentStatusBadge');
+            if (currentStudent.payment) {
+                badge.innerText = getText('student.payment_paid', 'Tolangan');
+                badge.style.color = '#27ae60';
+            } else {
+                badge.innerText = getText('student.payment_due', 'To\'lanmagan (Qarzdorlik mavjud)');
+                badge.style.color = '#e74c3c';
+            }
+        });
+    </script>
+    <script src="landing.js"></script>
+</body>
+</html>
