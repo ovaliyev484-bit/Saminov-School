@@ -4,15 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saminov School Dashboard</title>
-    <style>
-        body { font-family: 'Inter', sans-serif; text-align: center; margin-top: 100px; background: #f8f9fa;}
-        h1 { color: #106f75; }
-        a { text-decoration: none; color: white; background: #6481cc; padding: 10px 20px; border-radius: 4px; display: inline-block; margin-top: 20px; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1 data-i18n="dash.welcome">Tizimga kirdingiz! (Tez kunda ishga tushadi)</h1>
-    <a data-i18n="nav.logout" href="login.html">Chiqish</a>
-+    <script src="landing.js"></script>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-saminov">Saminov</span>
+                <span class="logo-school">School</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                <a href="#" class="nav-link logout-btn" onclick="logout(event)" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div>
+                    <h2 data-i18n="dash.welcome">Tizimga xush kelibsiz!</h2>
+                    <p style="font-size:0.95rem; color:#475569; margin-top:6px;">Saminov School premium boshqaruv paneli.</p>
+                </div>
+            </header>
+
+            <section class="content-section active-section">
+                <div class="section-header">
+                    <h3>Tezkor ko'rinish</h3>
+                </div>
+                <div class="stats-grid">
+                    <article class="stat-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                        <div>
+                            <p>O'quvchilar</p>
+                            <strong>1000+</strong>
+                        </div>
+                    </article>
+                    <article class="stat-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <div>
+                            <p>Ustozlar</p>
+                            <strong>50+</strong>
+                        </div>
+                    </article>
+                    <article class="stat-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+                        <div>
+                            <p>Sertifikat</p>
+                            <strong>95%</strong>
+                        </div>
+                    </article>
+                </div>
+                <div class="table-container" style="margin-top: 24px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mavzu</th>
+                                <th>Holat</th>
+                                <th>Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Andozalar va kurslar</td>
+                                <td>Faol</td>
+                                <td><button class="btn-primary">Batafsil</button></td>
+                            </tr>
+                            <tr>
+                                <td>O'quvchilar ro'yxati</td>
+                                <td>Yangi kirishlar</td>
+                                <td><button class="btn-primary">Batafsil</button></td>
+                            </tr>
+                            <tr>
+                                <td>Yangi xabarlar</td>
+                                <td>Tezkor</td>
+                                <td><button class="btn-primary">Batafsil</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        function safeParseJSON(key, fallback = null) {
+            const value = localStorage.getItem(key);
+            if (!value) return fallback;
+            try {
+                return JSON.parse(value);
+            } catch {
+                return fallback;
+            }
+        }
+
+        if (!window.logout) {
+            window.logout = function(e) {
+                if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                const currentUser = safeParseJSON('currentUser');
+                if (currentUser) {
+                    const db = safeParseJSON('schoolDB') || {};
+                    if (!Array.isArray(db.loginHistory)) db.loginHistory = [];
+                    db.loginHistory.unshift({
+                        type: 'logout',
+                        role: currentUser.role || 'user',
+                        userId: currentUser.id || null,
+                        name: currentUser.name || 'Noma\'lum',
+                        phone: currentUser.phone || '',
+                        timestamp: new Date().toISOString()
+                    });
+                    localStorage.setItem('schoolDB', JSON.stringify(db));
+                    localStorage.removeItem('currentUser');
+                }
+                window.location.href = 'login.html';
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = safeParseJSON('currentUser');
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+    <script src="landing.js"></script>
 </body>
 </html>

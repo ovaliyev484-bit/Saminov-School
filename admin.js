@@ -1,8 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Local storage helpers
+    function parseJSON(key, fallback = null) {
+        const value = localStorage.getItem(key);
+        if (!value) return fallback;
+        try {
+            return JSON.parse(value);
+        } catch {
+            return fallback;
+        }
+    }
+
+    function getStoredDB() {
+        return parseJSON('schoolDB');
+    }
+
     // Initial State & DB Simulation
-    let db = JSON.parse(localStorage.getItem('schoolDB')) || {
+    let db = getStoredDB() || {
         students: [
-            { id: 1, name: "Ali Valiyev", phone: "+(998)-90 123-45-67", password: "student", groupId: 1, payment: false }
+            { id: 1, name: "Ali Valiyev", phone: "+(998)-90 123-45-67", password: "student", groupId: 1, payment: false, paymentAmount: 0 }
         ],
         teachers: [
             { id: 1, name: "Aziza Karimova", phone: "+(998)-90 765-43-21", password: "teacher", subject: "Ingliz tili" }
@@ -13,11 +28,54 @@ document.addEventListener('DOMContentLoaded', () => {
         rooms: [
             { id: 1, name: "12-xona", capacity: 20 }
         ],
-        adminPassword: "admin"
+        adminPassword: "admin",
+        loginHistory: []
     };
 
     function saveDB() {
         localStorage.setItem('schoolDB', JSON.stringify(db));
+    }
+
+    function pruneLoginHistory(store) {
+        if (!store || !Array.isArray(store.loginHistory)) return;
+        const maxAgeMs = 10 * 60 * 1000;
+        const cutoff = Date.now() - maxAgeMs;
+        store.loginHistory = store.loginHistory.filter(item => {
+            const time = new Date(item.timestamp).getTime();
+            return !Number.isNaN(time) && time >= cutoff;
+        });
+    }
+
+    function pushAuthEvent(event) {
+        const store = getStoredDB() || db;
+        if (!Array.isArray(store.loginHistory)) store.loginHistory = [];
+        store.loginHistory.unshift(event);
+        pruneLoginHistory(store);
+        if (store.loginHistory.length > 20) store.loginHistory = store.loginHistory.slice(0, 20);
+        localStorage.setItem('schoolDB', JSON.stringify(store));
+    }
+
+    window.logout = function(e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        const currentUser = parseJSON('currentUser');
+        if (currentUser) {
+                pushAuthEvent({
+                type: 'logout',
+                role: currentUser.role || 'user',
+                userId: currentUser.id || null,
+                    name: currentUser.name || "Noma'lum",
+                phone: currentUser.phone || '',
+                timestamp: new Date().toISOString()
+            });
+            localStorage.removeItem('currentUser');
+        }
+        window.location.href = 'login.html';
+    };
+
+    const currentUser = parseJSON('currentUser');
+    if (!currentUser || currentUser.role !== 'admin') {
+        window.location.href = 'login.html';
+        return;
     }
 
     // Navigation Logic
@@ -53,12 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const paymentBtn = st.payment 
                 ? `<button onclick="togglePayment(${st.id})" style="background:#27ae60; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">To'langan</button>` 
                 : `<button onclick="togglePayment(${st.id})" style="background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">To'lanmagan</button>`;
+            const paymentAmount = st.paymentAmount ? `${st.paymentAmount} so'm` : `0 so'm`;
             tbody.innerHTML += `
                 <tr>
                     <td>${st.name}</td>
                     <td>${st.phone}</td>
                     <td>${st.password || 'student'}</td>
                     <td><span class="role-badge role-student">${groupName}</span></td>
+                    <td>${paymentAmount}</td>
                     <td>${paymentBtn}</td>
                     <td>
                         <button class="btn-danger" onclick="deleteRecord('students', ${st.id})"><i class="fa-solid fa-trash"></i></button>
@@ -130,6 +190,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function renderLoginHistory() {
+        const historyList = document.getElementById('loginHistoryList');
+        if (!historyList) return;
+        historyList.innerHTML = '';
+        const history = db.loginHistory || [];
+        if (!history.length) {
+            historyList.innerHTML = '<li>Hech qanday kirish/chiqish yozuvi mavjud emas.</li>';
+            return;
+        }
+        history.slice(0, 8).forEach(item => {
+            const time = new Date(item.timestamp);
+            const formatted = time.toLocaleString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            const action = item.type === 'login' ? 'kirdi' : 'chiqdi';
+            historyList.innerHTML += `
+                <li><strong>${item.name}</strong> (${item.role}) ${action} — ${formatted}</li>
+            `;
+        });
+    }
+
     // Populate Select Dropdowns for Modals
     function populateSelects() {
         // Student form -> Select Group
@@ -152,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTeachers();
         renderGroups();
         renderRooms();
+        renderLoginHistory();
         populateSelects();
         saveDB();
     }
@@ -185,7 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
             phone: document.getElementById('studentPhone').value,
             password: document.getElementById('studentPassword').value,
             groupId: document.getElementById('studentGroup').value,
-            payment: false
+            payment: false,
+            paymentAmount: parseFloat(document.getElementById('studentPaymentAmount').value) || 0
         });
         e.target.reset();
         closeModal('studentModal');

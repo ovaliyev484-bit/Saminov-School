@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Saminov School kirish sahifasi. Premium o'quv platforma uchun premium dizayn.">
     <title>Saminov School - Kirish</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -15,33 +18,70 @@
                 <span class="logo-saminov">Saminov</span>
                 <span class="logo-school">School</span>
             </div>
-            
+            <div class="hero-badge"><i class="fa-solid fa-star"></i> Premium smart ta'lim</div>
             <div class="role-tabs">
                 <div class="role-tab active" data-role="student">O'quvchi</div>
                 <div class="role-tab" data-role="teacher">O'qituvchi</div>
                 <div class="role-tab" data-role="admin">Admin</div>
             </div>
 
+            <div class="theme-switcher">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                <span>Tungi / Quyosh</span>
+            </div>
+
+            <p class="intro-text">Saminov School tizimiga kirish uchun rolni tanlang, telefon va parolni kiriting.</p>
+
             <form id="loginForm">
                 <div class="input-group">
                     <label for="phone" data-i18n="login.phone_label">Telefon raqam</label>
-                    <input type="text" id="phone" data-i18n-placeholder="login.phone_placeholder" placeholder="+(998)-_ _ _ - _ _ - _ _" autocomplete="off">
+                    <input type="text" id="phone" data-i18n-placeholder="login.phone_placeholder" placeholder="+(998)-__ ___-__-__" autocomplete="off" required>
                 </div>
                 
                 <div class="input-group">
                     <label for="password" data-i18n="login.password_label">Parol</label>
                     <div class="password-input-wrapper">
-                        <input type="password" id="password" data-i18n-placeholder="login.password_placeholder" placeholder="***************">
-                        <i class="fa-regular fa-eye-slash toggle-password"></i>
+                        <input type="password" id="password" data-i18n-placeholder="login.password_placeholder" placeholder="***************" required>
+                        <i class="fa-regular fa-eye-slash toggle-password" aria-label="Show password"></i>
                     </div>
                 </div>
                 
                 <button type="submit" class="login-btn" data-i18n="login.button">KIRISH</button>
             </form>
+
+            <div class="auth-actions">
+                <a href="#" id="registerLink">Ro'yxatdan o'tish</a>
+                <span aria-hidden="true">•</span>
+                <a href="#" id="forgotPasswordLink">Parolni tiklash</a>
+            </div>
+
+            <div id="registerPanel" class="auth-panel hidden" aria-hidden="true">
+                <h3>Ro'yxatdan o'tish</h3>
+                <form id="registerForm">
+                    <div class="input-group"><label for="register-name">Ism Familiya</label><input type="text" id="register-name" required></div>
+                    <div class="input-group"><label for="register-role">Rol</label><select id="register-role" required><option value="student">O'quvchi</option><option value="teacher">O'qituvchi</option></select></div>
+                    <div class="input-group"><label for="register-phone">Telefon</label><input type="text" id="register-phone" required></div>
+                    <div class="input-group"><label for="register-password">Parol</label><input type="password" id="register-password" required></div>
+                    <div class="input-group"><label for="register-password-confirm">Parolni tasdiqlang</label><input type="password" id="register-password-confirm" required></div>
+                    <button type="submit" class="login-btn">Ro'yxatdan o'tish</button>
+                    <button type="button" class="login-btn outline" id="registerBack">Orqaga</button>
+                </form>
+            </div>
+
+            <div id="resetPanel" class="auth-panel hidden" aria-hidden="true">
+                <h3>Parolni tiklash</h3>
+                <form id="resetForm">
+                    <div class="input-group"><label for="reset-phone">Telefon</label><input type="text" id="reset-phone" required></div>
+                    <div class="input-group"><label for="reset-password">Yangi parol</label><input type="password" id="reset-password" required></div>
+                    <div class="input-group"><label for="reset-password-confirm">Yangi parolni tasdiqlang</label><input type="password" id="reset-password-confirm" required></div>
+                    <button type="submit" class="login-btn">Parolni tiklash</button>
+                    <button type="button" class="login-btn outline" id="resetBack">Orqaga</button>
+                </form>
+            </div>
         </div>
     </div>
     
     <script src="script.js"></script>
-+    <script src="landing.js"></script>
+    <script src="landing.js"></script>
 </body>
 </html>

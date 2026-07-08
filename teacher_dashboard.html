@@ -15,26 +15,55 @@
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-link active"><i class="fa-solid fa-users"></i> <span data-i18n="teacher.groups_title">Mening guruhlarim</span></a>
-                <a href="login.html" class="nav-link logout-btn" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+                <a href="#" class="nav-link logout-btn" onclick="logout(event)" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
             </nav>
         </aside>
         
         <main class="main-content">
             <header class="top-header">
-                <h2 id="welcomeText">Xush kelibsiz!</h2>
+                <div>
+                    <h2 id="welcomeText">Xush kelibsiz!</h2>
+                    <p id="lastLoginText" style="font-size:0.95rem; color:#555; margin-top:6px;"></p>
+                </div>
             </header>
             
             <section class="content-section active-section">
                 <div class="section-header">
                     <h3 data-i18n="teacher.students_payments">O'quvchilar va To'lovlar ro'yxati</h3>
                 </div>
-                <div class="table-container">
+
+                <div class="stats-grid">
+                    <article class="stat-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                        <div>
+                            <p>Jami o'quvchilar</p>
+                            <strong id="statTotalStudents">—</strong>
+                        </div>
+                    </article>
+                    <article class="stat-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+                        <div>
+                            <p>To'lovlar</p>
+                            <strong id="statPayments">—</strong>
+                        </div>
+                    </article>
+                    <article class="stat-panel">
+                        <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
+                        <div>
+                            <p>Faol guruhlar</p>
+                            <strong id="statGroups">—</strong>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="table-container" style="margin-top: 18px;">
                     <table>
                         <thead>
                             <tr>
                                 <th data-i18n="teacher.student_name">O'quvchi Ismi</th>
                                 <th data-i18n="teacher.phone">Telefon</th>
                                 <th data-i18n="teacher.group">Guruh</th>
+                                <th data-i18n="teacher.payment_amount">To'lov summasi</th>
                                 <th data-i18n="teacher.payment_status">To'lov holati</th>
                             </tr>
                         </thead>
@@ -48,10 +77,51 @@
     </div>
     
     <script>
+        function safeParseJSON(key, fallback = null) {
+            const value = localStorage.getItem(key);
+            if (!value) return fallback;
+            try {
+                return JSON.parse(value);
+            } catch {
+                return fallback;
+            }
+        }
+
+        if (!window.logout) {
+            window.logout = function(e) {
+                if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                const currentUser = safeParseJSON('currentUser');
+                if (currentUser) {
+                    const db = safeParseJSON('schoolDB') || {};
+                    if (!Array.isArray(db.loginHistory)) db.loginHistory = [];
+                    db.loginHistory.unshift({
+                        type: 'logout',
+                        role: currentUser.role || 'user',
+                        userId: currentUser.id || null,
+                        name: currentUser.name || "Noma'lum",
+                        phone: currentUser.phone || '',
+                        timestamp: new Date().toISOString()
+                    });
+                    if (typeof window.pruneLoginHistory === 'function') {
+                        window.pruneLoginHistory(db);
+                    } else {
+                        const maxAgeMs = 10 * 60 * 1000;
+                        const cutoff = Date.now() - maxAgeMs;
+                        db.loginHistory = db.loginHistory.filter(item => {
+                            const time = new Date(item.timestamp).getTime();
+                            return !Number.isNaN(time) && time >= cutoff;
+                        });
+                    }
+                    localStorage.setItem('schoolDB', JSON.stringify(db));
+                    localStorage.removeItem('currentUser');
+                }
+                window.location.href = 'login.html';
+            };
+        }
         document.addEventListener('DOMContentLoaded', () => {
-            const db = JSON.parse(localStorage.getItem('schoolDB'));
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            if(!user || !db) {
+            const db = safeParseJSON('schoolDB');
+            const user = safeParseJSON('currentUser');
+            if (!user || !db || user.role !== 'teacher') {
                 window.location.href = 'login.html';
                 return;
             }
@@ -59,6 +129,11 @@
                 return window.getTranslation ? window.getTranslation(key) : fallback;
             };
             document.getElementById('welcomeText').innerText = `${getText('teacher.welcome_prefix', "O'qituvchi:")} ${user.name}`;
+            const lastLoginText = document.getElementById('lastLoginText');
+            if (lastLoginText && user.loginTime) {
+                const loginDate = new Date(user.loginTime);
+                lastLoginText.innerText = `So'nggi kirish: ${loginDate.toLocaleString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+            }
 
             function renderMyStudents() {
                 const tbody = document.getElementById('myStudentsTable');
@@ -70,14 +145,16 @@
                 
                 myStudents.forEach(st => {
                     const group = db.groups.find(g => g.id == st.groupId);
-                    const paymentText = st.payment ? getText('teacher.payment_paid', 'To'langan') : getText('teacher.payment_unpaid', 'To'lanmagan');
+                    const paymentText = st.payment ? getText('teacher.payment_paid', "To'langan") : getText('teacher.payment_unpaid', "To'lanmagan");
                     const paymentBtn = `<button onclick="togglePayment(${st.id})" style="background:${st.payment ? '#27ae60' : '#e74c3c'}; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">${paymentText}</button>`;
-                    
+                    const paymentAmount = st.paymentAmount ? `${st.paymentAmount} so'm` : `0 so'm`;
+
                     tbody.innerHTML += `
                         <tr>
                             <td>${st.name}</td>
                             <td>${st.phone}</td>
                             <td>${group ? group.name : ''}</td>
+                            <td>${paymentAmount}</td>
                             <td>${paymentBtn}</td>
                         </tr>
                     `;

@@ -11,6 +11,79 @@ function closeLightbox() {
     lightbox.classList.remove('active');
 }
 
+document.body.classList.add('loading');
+window.addEventListener('load', () => {
+    document.body.classList.remove('loading');
+    const pageLoader = document.getElementById('page-loader');
+    if (pageLoader) {
+        pageLoader.classList.add('hidden');
+    }
+});
+
+function getSchoolDB() {
+    const dbStr = localStorage.getItem('schoolDB');
+    if (!dbStr) return null;
+    try {
+        return JSON.parse(dbStr);
+    } catch {
+        return null;
+    }
+}
+
+function safeParseJSON(key, fallback = null) {
+    const value = localStorage.getItem(key);
+    if (!value) return fallback;
+    try {
+        return JSON.parse(value);
+    } catch {
+        return fallback;
+    }
+}
+
+function saveSchoolDB(data) {
+    localStorage.setItem('schoolDB', JSON.stringify(data));
+}
+
+function pruneLoginHistory(store) {
+    if (!store || !Array.isArray(store.loginHistory)) return;
+    const maxAgeMs = 10 * 60 * 1000;
+    const cutoff = Date.now() - maxAgeMs;
+    store.loginHistory = store.loginHistory.filter(item => {
+        const time = new Date(item.timestamp).getTime();
+        return !Number.isNaN(time) && time >= cutoff;
+    });
+}
+
+function pushAuthEvent(event) {
+    const db = getSchoolDB() || { students: [], teachers: [], groups: [], rooms: [], adminPassword: 'admin', loginHistory: [] };
+    if (!Array.isArray(db.loginHistory)) db.loginHistory = [];
+    db.loginHistory.unshift(event);
+    pruneLoginHistory(db);
+    if (db.loginHistory.length > 20) db.loginHistory = db.loginHistory.slice(0, 20);
+    saveSchoolDB(db);
+}
+
+window.pruneLoginHistory = pruneLoginHistory;
+
+window.logout = function(e) {
+    if (e && typeof e.preventDefault === 'function') {
+        e.preventDefault();
+    }
+    const currentUser = safeParseJSON('currentUser');
+            if (currentUser) {
+                pushAuthEvent({
+                    type: 'logout',
+                    role: currentUser.role || 'user',
+                    userId: currentUser.id || null,
+                    name: currentUser.name || "Noma'lum",
+                    phone: currentUser.phone || '',
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.removeItem('currentUser');
+            }
+    window.location.href = 'login.html';
+}
+
 // Escape tugmasi bilan yopish
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -19,24 +92,30 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure translations var exists early to avoid runtime ReferenceErrors
+    var translations = window.translations || {};
     
-    // Initialize AOS Animation Library
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        offset: 100
-    });
+    // Initialize AOS Animation Library if available
+    if (window.AOS && typeof window.AOS.init === 'function') {
+        window.AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+    }
 
     // Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 
     // Mobile Menu Toggle
     const hamburger = document.getElementById('hamburger');
@@ -65,27 +144,56 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme Toggle (Dark/Light Mode)
     const themeToggleBtn = document.getElementById('theme-toggle');
     const body = document.body;
-    const icon = themeToggleBtn.querySelector('i');
+    const icon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
 
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('saminovTheme');
     if (savedTheme === 'dark') {
         body.classList.add('dark-mode');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    }
-
-    themeToggleBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        if (body.classList.contains('dark-mode')) {
+        if (icon) {
             icon.classList.remove('fa-moon');
             icon.classList.add('fa-sun');
-            localStorage.setItem('saminovTheme', 'dark');
-        } else {
-            icon.classList.remove('fa-sun');
-            icon.classList.add('fa-moon');
-            localStorage.setItem('saminovTheme', 'light');
         }
+    }
+
+    if (themeToggleBtn && icon) {
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('saminovTheme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('saminovTheme', 'light');
+            }
+        });
+    }
+
+    document.querySelectorAll('a.logout-btn').forEach(logoutLink => {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (typeof window.logout !== 'function') {
+                window.logout = function(e) {
+                    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                    const currentUser = safeParseJSON('currentUser');
+                        if (currentUser) {
+                            pushAuthEvent({
+                                type: 'logout',
+                                role: currentUser.role || 'user',
+                                userId: currentUser.id || null,
+                                name: currentUser.name || "Noma'lum",
+                                phone: currentUser.phone || '',
+                                timestamp: new Date().toISOString()
+                            });
+                            localStorage.removeItem('currentUser');
+                        }
+                    window.location.href = 'login.html';
+                };
+            }
+            window.logout(e);
+        });
     });
 
     // Animated Counter for Statistics
@@ -123,6 +231,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+    // Also check on load in case the section is already visible
+    if (!hasCounted && statsSection) {
+        const rectInit = statsSection.getBoundingClientRect();
+        if (rectInit.top < window.innerHeight) {
+            runCounters();
+            hasCounted = true;
+        }
+    }
 
     // Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -133,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const navHeight = navbar.offsetHeight;
+                const navHeight = (navbar && navbar.offsetHeight) ? navbar.offsetHeight : 0;
                 window.scrollTo({
                     top: targetElement.offsetTop - navHeight,
                     behavior: 'smooth'
@@ -143,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle Admission Form Submit
-    const applyForm = document.getElementById('applyForm');
+    const applyForm = document.getElementById('admission-form');
     if (applyForm) {
         applyForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -151,8 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = applyForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
             
-                    // Use translated submitted text if available
-                const submittedText = (translations['form.submitted'] && translations['form.submitted'][localStorage.getItem('saminovLang') || 'uz']) || 'Application Submitted!';
+                // Use translated submitted text if available (guard translations)
+                const lang = localStorage.getItem('saminovLang') || 'uz';
+                const submittedText = (typeof translations !== 'undefined' && translations['form.submitted'] && translations['form.submitted'][lang]) ? translations['form.submitted'][lang] : 'Application Submitted!';
                 btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + submittedText;
                 btn.style.backgroundColor = '#27ae60';
                 btn.style.borderColor = '#27ae60';
@@ -162,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     applyForm.reset();
                     btn.innerHTML = originalText;
                     btn.style = '';
-                    const alertMsg = (translations['alert.application_received'] && translations['alert.application_received'][localStorage.getItem('saminovLang') || 'uz']) || "Thank you! Your application has been received. Our admission team will contact you shortly.";
+                    const alertMsg = (typeof translations !== 'undefined' && translations['alert.application_received'] && translations['alert.application_received'][lang]) ? translations['alert.application_received'][lang] : "Thank you! Your application has been received. Our admission team will contact you shortly.";
                     alert(alertMsg);
                 }, 3000);
         });
@@ -173,9 +290,128 @@ document.addEventListener('DOMContentLoaded', () => {
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const subMsg = (translations['alert.subscribed'] && translations['alert.subscribed'][localStorage.getItem('saminovLang') || 'uz']) || 'Subscribed successfully!';
+            const lang = localStorage.getItem('saminovLang') || 'uz';
+            const subMsg = (typeof translations !== 'undefined' && translations['alert.subscribed'] && translations['alert.subscribed'][lang]) ? translations['alert.subscribed'][lang] : 'Subscribed successfully!';
             alert(subMsg);
         });
+    }
+
+    // Course Search Filter
+    const courseSearch = document.getElementById('course-search');
+    if (courseSearch) {
+        courseSearch.addEventListener('input', () => {
+            const keyword = courseSearch.value.toLowerCase().trim();
+            document.querySelectorAll('.course-card').forEach(card => {
+                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const description = card.querySelector('p')?.textContent.toLowerCase() || '';
+                const show = title.includes(keyword) || description.includes(keyword) || keyword === '';
+                card.style.display = show ? 'block' : 'none';
+            });
+        });
+    }
+
+    // Scroll progress indicator
+    const scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', () => {
+            const value = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            scrollProgress.style.width = `${Math.min(100, Math.max(0, value))}%`;
+        });
+    }
+
+    // Chatbot widget
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotPanel = document.getElementById('chatbotPanel');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotForm = document.getElementById('chatbotForm');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotInput = document.getElementById('chatbotInput');
+
+    const addBotMessage = (message) => {
+        if (!chatbotMessages) return;
+        const bubble = document.createElement('div');
+        bubble.className = 'chatbot-bubble bot';
+        bubble.textContent = message;
+        chatbotMessages.appendChild(bubble);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    };
+
+    const addUserMessage = (message) => {
+        if (!chatbotMessages) return;
+        const bubble = document.createElement('div');
+        bubble.className = 'chatbot-bubble user';
+        bubble.textContent = message;
+        chatbotMessages.appendChild(bubble);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    };
+
+    const botReply = (input) => {
+        const normalized = input.toLowerCase();
+        if (!normalized) return 'Iltimos, savolingizni yozing.';
+        if (normalized.includes('kurs') || normalized.includes('course')) return 'Bizda STEAM, til, sanʼat va raqamli fanlar bo‘yicha premium kurslar mavjud.';
+        if (normalized.includes('qabul') || normalized.includes('admission')) return 'Qabul uchun formani to‘ldiring yoki +998 71 123 45 67 raqamiga qo‘ng‘iroq qiling.';
+        if (normalized.includes('narx') || normalized.includes('price')) return 'Narxlar va yo‘nalishlar haqida batafsil maʼlumot olish uchun bizga email yuboring: info@saminovschool.uz.';
+        if (normalized.includes('o‘qituvchi') || normalized.includes('teacher')) return 'Bizning ekspert o‘qituvchilarimiz har bir talaba uchun individual yondashuvni taʼminlaydi.';
+        return 'Ajoyib savol! Sizga darhol yordam beraman. Iltimos, qo‘shimcha savollaringizni yozing.';
+    };
+
+    if (chatbotToggle && chatbotPanel) {
+        chatbotToggle.addEventListener('click', () => {
+            chatbotPanel.classList.toggle('open');
+            chatbotPanel.setAttribute('aria-hidden', chatbotPanel.classList.contains('open') ? 'false' : 'true');
+            if (chatbotPanel.classList.contains('open')) {
+                addBotMessage('Salom! Sizga qanday yordam bera olaman?');
+            }
+        });
+    }
+
+    if (chatbotClose && chatbotPanel) {
+        chatbotClose.addEventListener('click', () => {
+            chatbotPanel.classList.remove('open');
+            chatbotPanel.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    if (chatbotForm && chatbotInput) {
+        chatbotForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const value = chatbotInput.value.trim();
+            if (!value) return;
+            addUserMessage(value);
+            chatbotInput.value = '';
+            setTimeout(() => {
+                addBotMessage(botReply(value));
+            }, 500);
+        });
+    }
+
+    // Testimonial carousel controls
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const testimonialPrev = document.getElementById('testimonialPrev');
+    const testimonialNext = document.getElementById('testimonialNext');
+    let testimonialIndex = 0;
+
+    const updateTestimonials = () => {
+        testimonialCards.forEach((card, index) => {
+            card.classList.toggle('active', index === testimonialIndex);
+        });
+    };
+
+    if (testimonialPrev && testimonialNext && testimonialCards.length) {
+        testimonialPrev.addEventListener('click', () => {
+            testimonialIndex = (testimonialIndex - 1 + testimonialCards.length) % testimonialCards.length;
+            updateTestimonials();
+        });
+
+        testimonialNext.addEventListener('click', () => {
+            testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
+            updateTestimonials();
+        });
+
+        setInterval(() => {
+            testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
+            updateTestimonials();
+        }, 7000);
     }
 
     // Language / i18n Switcher (Uzbek / Russian / English)
@@ -183,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const supportedLangs = ['uz', 'ru', 'en'];
 
     // Translation map for data-i18n keys
-    const translations = {
+    translations = {
         'nav.home': { uz: "Bosh sahifa", ru: "Главная", en: "Home" },
         'nav.about': { uz: "Biz haqimizda", ru: "О нас", en: "About" },
         'nav.courses': { uz: "Kurslar", ru: "Курсы", en: "Courses" },
@@ -235,9 +471,13 @@ document.addEventListener('DOMContentLoaded', () => {
         'admission.title': { uz: "Bog'lanish va Qabul", ru: "Контакты и прием", en: "Contact & Admission" },
         'admission.p': { uz: "Savollaringiz bormi? Qabul jarayonida yordam beramiz.", ru: "Есть вопросы? Мы поможем вам с приемом.", en: "Have questions? We're here to help you through the admission process." },
         'contact.location': { uz: "Manzil", ru: "Адрес", en: "Location" },
+        'contact.title': { uz: "Biz bilan bog'laning", ru: "Свяжитесь с нами", en: "Get In Touch" },
+        'contact.text': { uz: "Savollaringiz bormi? Biz yordam berishga tayyormiz.", ru: "Есть вопросы? Мы готовы помочь.", en: "Have questions? We're here to help!" },
         'contact.phone': { uz: "Telefon", ru: "Телефон", en: "Phone" },
         'contact.email': { uz: "Elektron pochta", ru: "Электронная почта", en: "Email" },
         'map.caption': { uz: "Bizning manzil (Xarita)", ru: "Наш адрес (Карта)", en: "Our location (Map)" },
+        'form.name': { uz: "Ism", ru: "Имя", en: "Full Name" },
+        'form.grade': { uz: "Qabul qilinayotgan sinf", ru: "Класс", en: "Grade Applying For" },
 
         'form.title': { uz: "Qabul uchun ariza", ru: "Заявка на прием", en: "Apply for Admission" },
         'form.first': { uz: "Ism", ru: "Имя", en: "First Name" },

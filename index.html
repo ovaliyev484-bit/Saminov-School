@@ -1,189 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saminov School | Excellence in Education</title>
-    
-    <!-- Google Fonts -->
+    <meta name="description" content="Saminov School - premium ta'lim markazi. Zamonaviy kurslar, tajribali ustozlar va 2026-yil trendlariga mos ta'lim.">
+    <meta name="theme-color" content="#0B1F3A">
+    <title>Saminov School | Bilim bilan kelajakni birga quramiz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Main CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="stylesheet" href="main.css">
 </head>
-<body>
 
-    <!-- Navigation -->
+<body class="loading">
+    <div id="page-loader" role="status" aria-live="polite" aria-label="Loading page">
+        <div class="spinner" aria-hidden="true"></div>
+    </div>
+    <div id="scrollProgress" aria-hidden="true"></div>
+
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
-                <span class="logo-text">Saminov<span class="logo-accent">School</span></span>
-            </a>
-            
+            <a href="#home" class="logo-text">Saminov<span class="logo-accent">School</span></a>
             <ul class="nav-links">
-                <li><a data-i18n="nav.home" href="#home">Home</a></li>
-                <li><a data-i18n="nav.about" href="#about">About</a></li>
-                <li><a data-i18n="nav.courses" href="#courses">Courses</a></li>
-                <li><a data-i18n="nav.teachers" href="#teachers">Teachers</a></li>
-                <li><a data-i18n="nav.gallery" href="#gallery">Gallery</a></li>
-                <li><a data-i18n="nav.contact" href="#contact">Contact</a></li>
+                <li><a href="#home">Bosh sahifa</a></li>
+                <li><a href="#about">Biz haqimizda</a></li>
+                <li><a href="#courses">Kurslar</a></li>
+                <li><a href="#teachers">Ustozlar</a></li>
+                <li><a href="#gallery">Galereya</a></li>
+                <li><a href="#admission">Aloqa</a></li>
             </ul>
-            
             <div class="nav-actions">
-                <button class="theme-toggle" id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
-                <select id="lang-select" class="lang-select" aria-label="Language select">
-                    <option value="uz">O'zbekcha</option>
-                    <option value="ru">Русский</option>
-                    <option value="en">English</option>
-                </select>
-                <a data-i18n="nav.login" href="login.html" class="btn-outline">Login</a>
-                <a data-i18n="nav.apply" href="#admission" class="btn-primary">Apply Now</a>
-                <div class="hamburger" id="hamburger">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+                <a href="#admission" class="btn-primary">Hoziroq ro'yxatdan o'tish</a>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobile-menu">
-        <span class="close-menu" id="close-menu">&times;</span>
-        <ul class="mobile-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#courses">Courses</a></li>
-            <li><a href="#teachers">Teachers</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li style="margin-top: 20px;">
-                <a href="login.html" class="btn-outline" style="display: inline-block;">Login</a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Hero Section -->
     <header class="hero" id="home">
-        <div class="hero-bg"></div>
+        <div class="hero-video-wrap" aria-hidden="true">
+            <video autoplay muted loop playsinline class="hero-video" poster="hero_bg.png">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-big-city-students-12138-large.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="hero-overlay"></div>
         <div class="container hero-content">
-            <div class="hero-text" data-aos="fade-up" data-aos-duration="1000">
-                <div class="badge" data-i18n="hero.badge">Premium Education</div>
-                <h1 class="hero-title" data-i18n="hero.title">Shaping the <span>Future</span> of Education</h1>
-                <p class="hero-subtitle" data-i18n="hero.subtitle">Welcome to Saminov School, where innovation meets tradition. We provide a world-class educational experience to prepare students for tomorrow's challenges.</p>
+            <div class="hero-copy" data-aos="fade-up" data-aos-duration="1200">
+                <span class="eyebrow">Premium Minimalism</span>
+                <h1 class="hero-title">Bilim bilan <span>kelajakni birga</span> quramiz!</h1>
+                <p class="hero-subtitle">Saminov School 2026-yilda innovatsion ta'lim, global standart va premium sharoitlarni birlashtiradi.</p>
                 <div class="hero-buttons">
-                    <a href="#admission" class="btn-primary btn-large" data-i18n="hero.apply">Apply Now <i class="fa-solid fa-arrow-right"></i></a>
-                    <a href="#about" class="btn-glass btn-large" data-i18n="hero.learn">Learn More</a>
+                    <a href="#admission" class="btn-primary">Hoziroq ro'yxatdan o'tish</a>
+                    <a href="#courses" class="btn-outline">Kurslarni ko'rish</a>
+                </div>
+                <div class="hero-metrics">
+                    <div class="metric-card">
+                        <strong>1000+</strong>
+                        <span>Faol o'quvchilar</span>
+                    </div>
+                    <div class="metric-card">
+                        <strong>50+</strong>
+                        <span>Ustozlar</span>
+                    </div>
+                    <div class="metric-card">
+                        <strong>95%</strong>
+                        <span>Muvaffaqiyat</span>
+                    </div>
                 </div>
             </div>
+            <aside class="hero-panel" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                <div class="panel-header">
+                    <span class="panel-tag">Zamonaviy ta'lim</span>
+                    <h2>Premium bilim, ishonchli kelajak</h2>
+                </div>
+                <p>Saminov School o'quvchilarga global standartdagi kurslar, shaxsiy rivojlanish imkoniyatlari va barqaror akademik yo'nalishlarni taklif etadi.</p>
+                <div class="panel-highlights">
+                    <div><i class="fa-solid fa-circle-check"></i> Mentorlik dasturi</div>
+                    <div><i class="fa-solid fa-circle-check"></i> Sertifikatlangan kurslar</div>
+                    <div><i class="fa-solid fa-circle-check"></i> 24/7 qo'llab-quvvatlash</div>
+                </div>
+            </aside>
         </div>
     </header>
 
-    <!-- Statistics Section -->
     <section class="statistics">
         <div class="container stats-container">
-            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
-                <h3 class="counter" data-target="1500">0</h3>
-                <p data-i18n="stat.students">Happy Students</p>
+                <h3 class="counter" data-target="1000">0</h3>
+                <p>O'quvchilar</p>
             </div>
-            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                <h3 class="counter" data-target="120">0</h3>
-                <p data-i18n="stat.teachers">Expert Teachers</p>
-            </div>
-            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="300">
-                <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
                 <h3 class="counter" data-target="50">0</h3>
-                <p data-i18n="stat.awards">Awards Won</p>
+                <p>Ustozlar</p>
             </div>
-            <div class="stat-card glass-panel" data-aos="fade-up" data-aos-delay="400">
-                <div class="stat-icon"><i class="fa-solid fa-building-columns"></i></div>
-                <h3 class="counter" data-target="25">0</h3>
-                <p data-i18n="stat.years">Years of Excellence</p>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+                <h3 class="counter" data-target="95">0</h3>
+                <p>Muvaffaqiyat</p>
+            </div>
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-icon"><i class="fa-solid fa-earth-americas"></i></div>
+                <h3 class="counter" data-target="18">0</h3>
+                <p>Xalqaro hamkorlik</p>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about section" id="about">
+    <section class="showcase section">
+        <div class="container showcase-grid">
+            <article class="showcase-card" data-aos="fade-right" data-aos-delay="100">
+                <span class="showcase-label">Talaba yutuqlari</span>
+                <h3>95% universitetga joylashuv</h3>
+                <p>Bitiruvchilarimiz yetakchi oliy ta'lim muassasalari va xalqaro dasturlarga muvaffaqiyatli qabul qilinadi.</p>
+            </article>
+            <article class="showcase-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="showcase-label">O'quv maydonlari</span>
+                <h3>STEAM laboratoriyalar</h3>
+                <p>AI, robototexnika va dizayn sinflarimiz real dunyo tajribasini beradi.</p>
+            </article>
+            <article class="showcase-card" data-aos="fade-left" data-aos-delay="300">
+                <span class="showcase-label">Raqamli rivojlanish</span>
+                <h3>Progress monitoring</h3>
+                <p>Onlayn dashboardlar bilan o'qish natijalarini doimiy ravishda kuzatib boring.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="achievement section" id="about">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle">Achievement Hub</h4>
+                <h2 class="section-title">Talabalar yutuqlari va sertifikatlari</h2>
+            </div>
+            <div class="achievement-grid">
+                <article class="achievement-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon"><i class="fa-solid fa-award"></i></div>
+                    <h3>50+ xalqaro sertifikat</h3>
+                    <p>O'quvchilarimiz global sertifikatlar va raqobatlarda muvaffaqiyatli ishtirok etadi.</p>
+                </article>
+                <article class="achievement-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h3>80+ sovrinlar</h3>
+                    <p>Innovatsion loyihalarimiz fan va tadqiqot tanlovlarida g'olib bo'ladi.</p>
+                </article>
+                <article class="achievement-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <h3>Global hamkorlik</h3>
+                    <p>Tashkilotlar va xalqaro loyihalar bilan doimiy hamkorlik olib boriladi.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="about section">
         <div class="container about-grid">
             <div class="about-image" data-aos="fade-right">
                 <div class="image-wrapper">
-                    <div class="decorative-img"></div>
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80" alt="Saminov School" loading="lazy">
                     <div class="experience-badge glass-panel">
-                        <h2 class="counter" data-target="25">0</h2>
-                        <p>Years Experience</p>
+                        <h2 class="counter" data-target="18">0</h2>
+                        <p>Yil tajriba</p>
                     </div>
                 </div>
             </div>
             <div class="about-content" data-aos="fade-left">
-                <h4 class="section-subtitle" data-i18n="about.subtitle">About Us</h4>
-                <h2 class="section-title" data-i18n="about.title">Nurturing Young Minds for a Brighter Future</h2>
-                <p class="about-text" data-i18n="about.text">
-                    At Saminov School, we believe in creating an environment where every student can thrive. Our modern curriculum combines academic excellence with practical skills, ensuring our students are prepared for global challenges.
-                </p>
+                <h4 class="section-subtitle">Biz haqimizda</h4>
+                <h2 class="section-title small">Saminov School bilan zamonaviy ta'limni kashf eting</h2>
+                <p class="about-text">Har bir o'quvchi uchun innovatsion metodlar, zamonaviy infratuzilma va individual yondashuv taklif qilamiz. Bizning maqsadimiz - ishonchli, sifatli va xalqaro darajadagi ta'lim.</p>
                 <ul class="feature-list">
-                    <li><i class="fa-solid fa-check-circle"></i> International Standards</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Experienced Faculty</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Modern Facilities</li>
-                    <li><i class="fa-solid fa-check-circle"></i> Student-Centric Approach</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Global standartdagi o'quv dasturi</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Ekspert ustozlar jamoasi</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Premium maktab muhit
+</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Shaxsiy o'sish va natijalar</li>
                 </ul>
-                <a href="#about" class="btn-primary mt-4">Discover More</a>
+                <a href="#courses" class="btn-outline mt-4">Kurslarni kuzatish</a>
             </div>
         </div>
     </section>
 
-    <!-- Courses Section -->
     <section class="courses section bg-light" id="courses">
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
-                <h4 class="section-subtitle" data-i18n="courses.subtitle">Our Programs</h4>
-                <h2 class="section-title" data-i18n="courses.title">What We Offer</h2>
+                <h4 class="section-subtitle">Kurslar</h4>
+                <h2 class="section-title">Saminov School kurslari</h2>
             </div>
-            <div class="courses-grid">
+            <div class="courses-grid" data-aos="fade-up" data-aos-delay="150">
                 <div class="course-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="course-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3 data-i18n="courses.primary">Primary Education</h3>
-                    <p>Building strong foundations for young learners with interactive and engaging methods.</p>
-                    <a href="#" class="course-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="course-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3>STEAM & Texnologiya</h3>
+                    <p>Zamonaviy kodlash, robototexnika va AI bo'yicha premium ta'lim.</p>
+                    <a href="#" class="course-link">Batafsil <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 <div class="course-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="course-icon"><i class="fa-solid fa-book-open"></i></div>
-                    <h3 data-i18n="courses.secondary">Secondary Education</h3>
-                    <p>Comprehensive programs preparing students for higher education and future careers.</p>
-                    <a href="#" class="course-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="course-icon"><i class="fa-solid fa-globe"></i></div>
+                    <h3>Tillar va kommunikatsiya</h3>
+                    <p>Ingliz, ispan va mandarin tillari, shuningdek, yetakchilik malakalari.</p>
+                    <a href="#" class="course-link">Batafsil <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
                 <div class="course-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="course-icon"><i class="fa-solid fa-code"></i></div>
-                    <h3 data-i18n="courses.steam">STEAM Programs</h3>
-                    <p>Science, Technology, Engineering, Arts, and Mathematics for innovative thinking.</p>
-                    <a href="#" class="course-link">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="course-icon"><i class="fa-solid fa-paintbrush"></i></div>
+                    <h3>San'at & Dizayn</h3>
+                    <p>Ijodiy fikrlash, vizual dizayn va san'at orqali o'z potentsialingizni kengaytiring.</p>
+                    <a href="#" class="course-link">Batafsil <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Teachers Section -->
     <section class="teachers section" id="teachers">
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
-                <h4 class="section-subtitle" data-i18n="teachers.subtitle">Our Team</h4>
-                <h2 class="section-title" data-i18n="teachers.title">Meet Our Expert Teachers</h2>
+                <h4 class="section-subtitle">Ustozlar</h4>
+                <h2 class="section-title">Bizning ekspert ustozlarimiz</h2>
             </div>
             <div class="teachers-grid">
                 <div class="teacher-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="teacher-img img-1"></div>
                     <div class="teacher-info">
                         <h3>Vaiyev Omadbek</h3>
-                        <p>IT Teacher</p>
+                        <p>IT va loyiha menejeri</p>
                         <div class="social-links">
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -195,7 +235,7 @@
                     <div class="teacher-img img-2"></div>
                     <div class="teacher-info">
                         <h3>Roziqov Dilshodbek</h3>
-                        <p>English Teacher</p>
+                        <p>Ingliz tili mutaxassisi</p>
                         <div class="social-links">
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -207,7 +247,7 @@
                     <div class="teacher-img img-3"></div>
                     <div class="teacher-info">
                         <h3>Mamarasulov Jumanazar</h3>
-                        <p>Math Teacher</p>
+                        <p>Matematika va ilmiy yondashuv</p>
                         <div class="social-links">
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -219,7 +259,7 @@
                     <div class="teacher-img img-4"></div>
                     <div class="teacher-info">
                         <h3>Avdusattorov Dilmuhammad</h3>
-                        <p>English Teacher</p>
+                        <p>Ingliz tili va kommunikatsiya</p>
                         <div class="social-links">
                             <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                             <a href="#"><i class="fa-brands fa-twitter"></i></a>
@@ -231,144 +271,202 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section class="gallery section bg-dark" id="gallery">
         <div class="container">
-            <div class="section-header text-center light-text" data-aos="fade-up">
-                <h4 class="section-subtitle" data-i18n="gallery.subtitle">Campus Life</h4>
-                <h2 class="section-title" data-i18n="gallery.title">Our Photo Gallery</h2>
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle">Galereya</h4>
+                <h2 class="section-title">Kampusdan ilhomlantiruvchi lahzalar</h2>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item item-1" data-aos="fade-up" data-aos-delay="100" onclick="openLightbox('gallery4.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
-                <div class="gallery-item item-2" data-aos="fade-up" data-aos-delay="200" onclick="openLightbox('gallery2.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
-                <div class="gallery-item item-3" data-aos="fade-up" data-aos-delay="300" onclick="openLightbox('gallery1.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
-                <div class="gallery-item item-4" data-aos="fade-up" data-aos-delay="400" onclick="openLightbox('gallery3.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
-                <div class="gallery-item item-5" data-aos="fade-up" data-aos-delay="500" onclick="openLightbox('gallery1.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
-                <div class="gallery-item item-6" data-aos="fade-up" data-aos-delay="600" onclick="openLightbox('gallery2.jpg')"><div class="overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>
+            <div class="gallery-slider" data-aos="fade-up" data-aos-delay="100">
+                <div class="slide" onclick="openLightbox('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80')">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80" alt="Campus Life">
+                    <div class="slide-overlay"><i class="fa-solid fa-play"></i> Maktab hayoti</div>
+                </div>
+                <div class="slide" onclick="openLightbox('https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&w=900&q=80')">
+                    <img src="https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&w=900&q=80" alt="Workshop">
+                    <div class="slide-overlay"><i class="fa-solid fa-play"></i> Workshoplar</div>
+                </div>
+                <div class="slide" onclick="openLightbox('https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80')">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=900&q=80" alt="Learning together">
+                    <div class="slide-overlay"><i class="fa-solid fa-play"></i> O'qish jarayoni</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Lightbox -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="close-lightbox">&times;</span>
-        <img id="lightbox-img" src="" alt="Rasm">
+        <img id="lightbox-img" src="" alt="preview">
     </div>
 
-    <!-- Testimonials Section -->
     <section class="testimonials section">
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
-                <h4 class="section-subtitle" data-i18n="testimonials.subtitle">Testimonials</h4>
-                <h2 class="section-title" data-i18n="testimonials.title">What Parents Say</h2>
+                <h4 class="section-subtitle">Ota-onalar fikri</h4>
+                <h2 class="section-title">Nima deyishadi</h2>
             </div>
-            <div class="testimonial-content" data-aos="fade-up">
-                <div class="glass-panel-dark">
-                    <i class="fa-solid fa-quote-left quote-icon"></i>
-                    <p class="testimonial-text">
-                        "Saminov School has been an incredible journey for my child. The teachers are dedicated, facilities are amazing, and the curriculum is outstanding!"
-                    </p>
-                    <div class="author-avatar"></div>
-                    <div class="author-info">
-                        <h4>Sarvinoz Ahmedova</h4>
-                        <span>Parent</span>
-                    </div>
+            <div class="testimonial-carousel" data-aos="fade-up" data-aos-delay="100">
+                <button class="carousel-control prev" id="testimonialPrev" aria-label="Previous testimonial"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="carousel-track">
+                    <article class="testimonial-card active">
+                        <p>“Saminov School talabalarga yuqori darajadagi bilim va ishonch bag'ishlaydi. Farzandimiz o'sishda davom etmoqda.”</p>
+                        <div class="author-block">
+                            <div class="author-avatar"></div>
+                            <div>
+                                <h4>Gulbahor Qodirova</h4>
+                                <span>Ona</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <p>“Darslar professionallar tomonidan olib boriladi. Atmosfera juda premium va ishonchli.”</p>
+                        <div class="author-block">
+                            <div class="author-avatar"></div>
+                            <div>
+                                <h4>Javlon Karimov</h4>
+                                <span>Ota</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="testimonial-card">
+                        <p>“Individual yondashuv, interaktiv ta'lim va mukammal qo'llab-quvvatlash bizni hayratda qoldirdi.”</p>
+                        <div class="author-block">
+                            <div class="author-avatar"></div>
+                            <div>
+                                <h4>Saidabek To'xtasinov</h4>
+                                <span>Ota-ona</span>
+                            </div>
+                        </div>
+                    </article>
                 </div>
+                <button class="carousel-control next" id="testimonialNext" aria-label="Next testimonial"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- Admission & Contact Section -->
-    <section class="admission section bg-light" id="contact">
+    <section class="section">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle">Hamkorlar</h4>
+                <h2 class="section-title">Biz bilan birga o'sayotgan brendlar</h2>
+            </div>
+            <div class="partner-logos" data-aos="fade-up" data-aos-delay="150">
+                <div class="logo-box">EduTech</div>
+                <div class="logo-box">FutureLab</div>
+                <div class="logo-box">GlobalEd</div>
+                <div class="logo-box">Innova</div>
+                <div class="logo-box">BrightPath</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up">
+                <h4 class="section-subtitle">FAQ</h4>
+                <h2 class="section-title">Ko'p beriladigan savollar</h2>
+            </div>
+            <div class="faq-grid" data-aos="fade-up" data-aos-delay="150">
+                <article class="faq-card">
+                    <h3>Qanday kurslarga yozilaman?</h3>
+                    <p>STEAM, til, san'at va raqamli fanlar bo'yicha kuchli modul asosidagi kurslarimiz mavjud.</p>
+                </article>
+                <article class="faq-card">
+                    <h3>Qabul jarayoni qanday?</h3>
+                    <p>Onlayn ariza to'ldirish, suhbat va test baholashdan iborat oddiy va shaffof jarayon.</p>
+                </article>
+                <article class="faq-card">
+                    <h3>O'qituvchilar kimlar?</h3>
+                    <p>Barcha o'qituvchilar malakali, xalqaro tajribaga ega mutaxassislardir.</p>
+                </article>
+                <article class="faq-card">
+                    <h3>Foto va video galereya bormi?</h3>
+                    <p>Ha, kampus, sinflar va student loyihalarning ilhomlantiruvchi fotolari mavjud.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="admission section bg-dark" id="admission">
         <div class="container">
             <div class="admission-grid">
                 <div class="contact-info" data-aos="fade-right">
-                    <div class="glass-panel-blue">
-                        <h2 data-i18n="contact.title">Get In Touch</h2>
-                        <p data-i18n="contact.text">Have questions? We'd love to hear from you!</p>
-                        
-                        <div class="info-item">
-                            <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
-                            <div>
-                                <h4 data-i18n="contact.address">Address</h4>
-                                <p>Tashkent, Uzbekistan</p>
-                            </div>
+                    <h2>Biz bilan bog'laning</h2>
+                    <p>Savollaringiz yoki ro'yxatdan o'tish istagingiz bo'lsa, biz bilan bog'laning. Qabul guruhi tez orada javob beradi.</p>
+                    <div class="info-item">
+                        <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4>Manzil</h4>
+                            <p>Toshkent, Uzbekistan</p>
                         </div>
-                        
-                        <div class="info-item">
-                            <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
-                            <div>
-                                <h4 data-i18n="contact.phone">Phone</h4>
-                                <p>+998 71 123 45 67</p>
-                            </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <h4>Telefon</h4>
+                            <p>+998 71 123 45 67</p>
                         </div>
-                        
-                        <div class="info-item">
-                            <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
-                            <div>
-                                <h4 data-i18n="contact.email">Email</h4>
-                                <p>info@saminovschool.uz</p>
-                            </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@saminovschool.uz</p>
                         </div>
-                        
-                        <div class="map-container">
-                            <div class="map-placeholder">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                                <span>Map Location</span>
-                            </div>
+                    </div>
+                    <div class="map-container">
+                        <div class="map-placeholder">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Xarita bo'yicha joylashuv</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="admission-form" id="contact" data-aos="fade-left">
-                    <h3 data-i18n="admission.title">Apply for Admission</h3>
+                <div class="admission-form" data-aos="fade-left">
+                    <h3>Qabul uchun ariza</h3>
                     <form id="admission-form">
                         <div class="form-row">
                             <div class="input-group">
-                                <label data-i18n="form.name">Full Name</label>
-                                <input type="text" placeholder="Your name" required>
+                                <label for="applicant-name">Ism Familiya</label>
+                                <input id="applicant-name" name="name" type="text" placeholder="Ismingiz" required>
                             </div>
                             <div class="input-group">
-                                <label data-i18n="form.email">Email</label>
-                                <input type="email" placeholder="Your email" required>
+                                <label for="applicant-email">Email</label>
+                                <input id="applicant-email" name="email" type="email" placeholder="Email manzilingiz" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-group">
-                                <label data-i18n="form.phone">Phone</label>
-                                <input type="tel" placeholder="Your phone">
+                                <label for="applicant-phone">Telefon</label>
+                                <input id="applicant-phone" name="phone" type="tel" placeholder="Telefon raqamingiz" required>
                             </div>
                             <div class="input-group">
-                                <label data-i18n="form.grade">Grade Applying For</label>
-                                <select>
-                                    <option>Grade 1</option>
-                                    <option>Grade 2</option>
-                                    <option>Grade 3</option>
-                                    <option>Grade 4</option>
-                                    <option>Grade 5</option>
-                                    <option>Grade 6-10</option>
+                                <label for="applicant-grade">Sinfi</label>
+                                <select id="applicant-grade" name="grade" required>
+                                    <option value="">Tanlang</option>
+                                    <option value="grade-1">1-sinf</option>
+                                    <option value="grade-2">2-sinf</option>
+                                    <option value="grade-3">3-sinf</option>
+                                    <option value="grade-4">4-sinf</option>
+                                    <option value="grade-5">5-sinf</option>
                                 </select>
                             </div>
                         </div>
                         <div class="input-group">
-                            <label data-i18n="form.message">Message</label>
-                            <textarea placeholder="Tell us more..." rows="4"></textarea>
+                            <label for="applicant-message">Xabar</label>
+                            <textarea id="applicant-message" name="message" placeholder="Bizga nima yozmoqchisiz..." rows="4"></textarea>
                         </div>
-                        <button type="submit" class="btn-primary btn-full" data-i18n="form.submit">Submit Application</button>
+                        <button type="submit" class="btn-primary btn-full">Ariza yuborish</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container footer-grid">
             <div class="footer-col">
-                <a href="#" class="logo footer-logo">
-                    <span class="logo-text">Saminov<span class="logo-accent">School</span></span>
-                </a>
-                <p>Empowering the next generation with modern education, strong values, and global skills.</p>
+                <a href="#home" class="footer-logo">Saminov<span class="logo-accent">School</span></a>
+                <p>Kelajakka ishonchli qadam tashlang. Saminov School bilan premium ta'lim tajribasini his eting.</p>
                 <div class="social-links">
                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -377,39 +475,60 @@
                 </div>
             </div>
             <div class="footer-col">
-                <h3>Quick Links</h3>
+                <h3>Tezkor havolalar</h3>
                 <ul>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#teachers">Teachers</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">Biz haqimizda</a></li>
+                    <li><a href="#courses">Kurslar</a></li>
+                    <li><a href="#teachers">Ustozlar</a></li>
+                    <li><a href="#gallery">Galereya</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h3>Resources</h3>
+                <h3>Resurslar</h3>
                 <ul>
-                    <li><a href="#">Student Portal</a></li>
-                    <li><a href="#">Parent Portal</a></li>
-                    <li><a href="#">Academic Calendar</a></li>
-                    <li><a href="#">Library</a></li>
+                    <li><a href="#">Maktab portali</a></li>
+                    <li><a href="#">Ota-ona zonasi</a></li>
+                    <li><a href="#">O'quv taqvimi</a></li>
+                    <li><a href="#">Sertifikatlar</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h3>Newsletter</h3>
-                <p>Subscribe to get the latest news and updates.</p>
+                <h3>Yangiliklar</h3>
+                <p>Yangilanishlar va qabul yangiliklari uchun obuna bo'ling.</p>
                 <form class="newsletter-form">
-                    <input type="email" placeholder="Your email address" required>
+                    <input type="email" placeholder="Email manzilingiz" required>
                     <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
         <div class="footer-bottom text-center">
-            <p>&copy; 2026 Saminov School. All rights reserved.</p>
+            <p>&copy; 2026 Saminov School. Barcha huquqlar himoyalangan.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <div class="chatbot-widget" id="chatbotWidget" aria-live="polite">
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open AI assistant">
+            <i class="fa-solid fa-robot"></i>
+            <span>Smart Assistant</span>
+        </button>
+        <div class="chatbot-panel" id="chatbotPanel" aria-hidden="true">
+            <div class="chatbot-header">
+                <div>
+                    <h4>Smart Study Assistant</h4>
+                    <p>Savollar, qabul va kurslar bo'yicha yordam oling.</p>
+                </div>
+                <button id="chatbotClose" aria-label="Close chat">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages" role="log"></div>
+            <form id="chatbotForm" class="chatbot-form" aria-label="AI assistant chat form">
+                <input type="text" id="chatbotInput" placeholder="Savolingizni yozing..." autocomplete="off">
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="landing.js"></script>
 </body>
+
 </html>

@@ -28,7 +28,7 @@
                     <span data-i18n="admin.rooms">Xonalar</span></a>
                 <a href="#" class="nav-link" data-target="settings-section"><i class="fa-solid fa-gear"></i>
                     <span data-i18n="admin.settings">Sozlamalar</span></a>
-                <a href="#" class="nav-link logout-btn" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i>
+                <a href="#" class="nav-link logout-btn" onclick="logout(event)" data-i18n="nav.logout"><i class="fa-solid fa-right-from-bracket"></i>
                     Chiqish</a>
             </nav>
         </aside>
@@ -42,8 +42,17 @@
                 </div>
             </header>
 
+            <div class="activity-panel glass-panel">
+                <div class="activity-header">
+                    <h3>So'nggi kirish / chiqishlar</h3>
+                </div>
+                <div class="activity-list">
+                    <ul id="loginHistoryList"></ul>
+                </div>
+            </div>
+
             <!-- STUDENTS SECTION -->
-            <section id="students-section" class="content-section active-section">
+            <section id="students-section" class="content-section active-section glass-panel">
                 <div class="section-header">
                     <h3 data-i18n="admin.students_list">O'quvchilar ro'yxati</h3>
                     <button class="btn-primary" onclick="openModal('studentModal')"><i class="fa-solid fa-plus"></i>
@@ -57,7 +66,8 @@
                                 <th>Telefon</th>
                                 <th>Parol</th>
                                 <th>Guruh</th>
-                                <th>To'lov</th>
+                                <th>To'lov miqdori</th>
+                                <th>To'lov holati</th>  
                                 <th>Amallar</th>
                             </tr>
                         </thead>
@@ -67,7 +77,7 @@
             </section>
 
             <!-- TEACHERS SECTION -->
-            <section id="teachers-section" class="content-section" style="display: none;">
+            <section id="teachers-section" class="content-section glass-panel" style="display: none;">
                 <div class="section-header">
                     <h3 data-i18n="admin.teachers_list">O'qituvchilar ro'yxati</h3>
                     <button class="btn-primary" onclick="openModal('teacherModal')"><i class="fa-solid fa-plus"></i>
@@ -90,7 +100,7 @@
             </section>
 
             <!-- GROUPS SECTION -->
-            <section id="groups-section" class="content-section" style="display: none;">
+            <section id="groups-section" class="content-section glass-panel" style="display: none;">
                 <div class="section-header">
                     <h3 data-i18n="admin.groups_list">Guruhlar ro'yxati</h3>
                     <button class="btn-primary" onclick="openModal('groupModal')"><i class="fa-solid fa-plus"></i> <span data-i18n="admin.add_group">Guruh qo'shish</span></button>
@@ -111,7 +121,7 @@
             </section>
 
             <!-- ROOMS SECTION -->
-            <section id="rooms-section" class="content-section" style="display: none;">
+            <section id="rooms-section" class="content-section glass-panel" style="display: none;">
                 <div class="section-header">
                     <h3 data-i18n="admin.rooms_list">Xonalar ro'yxati</h3>
                     <button class="btn-primary" onclick="openModal('roomModal')"><i class="fa-solid fa-plus"></i> <span data-i18n="admin.add_room">Xona qo'shish</span></button>
@@ -131,14 +141,13 @@
             </section>
 
             <!-- SETTINGS SECTION -->
-            <section id="settings-section" class="content-section" style="display: none;">
+            <section id="settings-section" class="content-section glass-panel" style="display: none;">
                 <div class="section-header">
                     <h3 data-i18n="admin.change_password">Parolni o'zgartirish</h3>
                 </div>
-                <div class="form-container"
-                    style="background: white; padding: 30px; border-radius: 8px; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div class="form-container glass-panel" style="max-width:400px;">
                     <form id="changePasswordForm">
-                        <div class="input-group">
+                        <div class="input-group">*
                             <label data-i18n="admin.old_password">Eski parol</label>
                             <input type="password" id="oldPassword" data-i18n-placeholder="admin.old_password_placeholder" required>
                         </div>
@@ -160,7 +169,7 @@
     <!-- MODALS -->
     <!-- Student Modal -->
     <div id="studentModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-panel">
             <div class="modal-header">
                 <h3>O'quvchi qo'shish</h3><span class="close-modal" onclick="closeModal('studentModal')">&times;</span>
             </div>
@@ -173,14 +182,16 @@
                     <label data-i18n="admin.student_group">Guruhni tanlang</label>
                     <select id="studentGroup" required></select>
                 </div>
-                <button type="submit" class="btn-primary full-width" data-i18n="admin.save">Saqlash</button>
+                <div class="input-group"><label>To'lov miqdori (so'm)</label><input type="number" id="studentPaymentAmount" min="0" step="0.01" placeholder="Masalan: 500000"></div>
+                <button type="submit" class="btn-primary full-width" 
+                data-i18n="admin.save">Saqlash</button>
             </form>
         </div>
     </div>
 
     <!-- Teacher Modal -->
     <div id="teacherModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-panel">
             <div class="modal-header">
                 <h3>O'qituvchi qo'shish</h3><span class="close-modal"
                     onclick="closeModal('teacherModal')">&times;</span>
@@ -209,7 +220,7 @@
 
     <!-- Group Modal -->
     <div id="groupModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-panel">
             <div class="modal-header">
                 <h3>Guruh qo'shish</h3><span class="close-modal" onclick="closeModal('groupModal')">&times;</span>
             </div>
@@ -231,7 +242,7 @@
 
     <!-- Room Modal -->
     <div id="roomModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content glass-panel">
             <div class="modal-header">
                 <h3>Xona qo'shish</h3><span class="close-modal" onclick="closeModal('roomModal')">&times;</span>
             </div>
