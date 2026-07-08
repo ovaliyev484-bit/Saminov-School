@@ -271,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const lang = localStorage.getItem('saminovLang') || 'uz';
                 const submittedText = (typeof translations !== 'undefined' && translations['form.submitted'] && translations['form.submitted'][lang]) ? translations['form.submitted'][lang] : 'Application Submitted!';
                 btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + submittedText;
-                btn.style.backgroundColor = '#27ae60';
-                btn.style.borderColor = '#27ae60';
+                btn.style.backgroundColor = '#dc2626';
+                btn.style.borderColor = '#dc2626';
                 btn.style.color = 'white';
                 
                 setTimeout(() => {

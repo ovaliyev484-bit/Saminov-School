@@ -1,14 +1,14 @@
 ﻿:root {
     --midnight: #0B1F3A;
-    --royal: #2563EB;
-    --gold: #FACC15;
+    --royal: #4b1a1a;
+    --gold: #EF4444;
     --white: #FFFFFF;
     --light-gray: #F8FAFC;
     --dark-gray: #1E293B;
     --glass-bg: rgba(255, 255, 255, 0.18);
     --glass-border: rgba(255, 255, 255, 0.25);
     --shadow-soft: 0 20px 60px rgba(11, 31, 58, 0.18);
-    --shadow-glow: 0 0 50px rgba(255, 204, 21, 0.15);
+    --shadow-glow: 0 0 50px rgba(239,68,68,0.12);
     --radius: 28px;
     --transition: 0.35s ease;
 }
@@ -26,9 +26,9 @@ html {
 
 body {
     min-height: 100vh;
-    background: radial-gradient(circle at top left, rgba(255, 204, 21, 0.08), transparent 24%),
-                radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.12), transparent 28%),
-                linear-gradient(180deg, #0A172F 0%, #0F234A 40%, #F8FAFC 100%);
+    background: radial-gradient(circle at top left, rgba(239, 68, 68, 0.08), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(20, 6, 10, 0.06), transparent 28%),
+                linear-gradient(180deg, #050507 0%, #0a0610 40%, #12060d 100%);
     color: var(--white);
     overflow-x: hidden;
 }
@@ -43,7 +43,7 @@ body.dark-mode {
     left: 0;
     height: 4px;
     width: 0;
-    background: linear-gradient(90deg, rgba(250, 204, 21, 1), rgba(37, 99, 235, 1));
+    background: linear-gradient(90deg, rgba(239,68,68,1), rgba(139,21,21,1));
     z-index: 2000;
     transition: width 0.15s ease;
 }
@@ -153,7 +153,7 @@ a {
 
 .feature-list li {
     display: flex;
-    align-items: center;
+    color: var(--white);
     gap: 16px;
     color: rgba(255, 255, 255, 0.78);
     font-size: 1rem;
@@ -189,30 +189,31 @@ a {
 .btn-primary,
 .btn-outline,
 .btn-glass {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border-radius: 999px;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #FACC15 0%, #FFEC7A 100%);
-    color: var(--midnight);
+    background: linear-gradient(135deg, #EF4444 0%, #7f1d1d 100%);
+    color: var(--white);
     padding: 16px 32px;
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 18px 60px rgba(239,68,68,0.18);
     border: none;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 60px rgba(250, 204, 21, 0.3);
+    box-shadow: 0 18px 60px rgba(220,38,38,0.3);
 }
 
 .btn-outline {
+    padding: 16px 30px;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 60px rgba(220,38,38,0.3);
+}
     padding: 16px 30px;
     color: var(--white);
     border: 1px solid rgba(255, 255, 255, 0.35);
@@ -839,7 +840,7 @@ a {
 }
 
 .glass-panel-blue {
-    background: rgba(37, 99, 235, 0.18);
+    background: rgba(239, 68, 68, 0.12);
 }
 
 .contact-info h2,

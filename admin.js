@@ -109,8 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const group = db.groups.find(g => g.id == st.groupId);
             const groupName = group ? group.name : "Biriktirilmagan";
             const paymentBtn = st.payment 
-                ? `<button onclick="togglePayment(${st.id})" style="background:#27ae60; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">To'langan</button>` 
-                : `<button onclick="togglePayment(${st.id})" style="background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">To'lanmagan</button>`;
+                ? `<button onclick="togglePayment(${st.id})" style="background:#dc2626; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">To'langan</button>` 
+                : `<button onclick="togglePayment(${st.id})" style="background:#f87171; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">To'lanmagan</button>`;
             const paymentAmount = st.paymentAmount ? `${st.paymentAmount} so'm` : `0 so'm`;
             tbody.innerHTML += `
                 <tr>

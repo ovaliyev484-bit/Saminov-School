@@ -35,12 +35,46 @@
 
         <main class="main-content">
             <header class="top-header">
-                <h2 id="pageTitle" data-i18n="admin.students">O'quvchilar</h2>
+                <div>
+                    <p style="margin:0; color: rgba(255,255,255,0.72); font-size:0.95rem;">Admin panel</p>
+                    <h2 id="pageTitle" data-i18n="admin.students">O'quvchilar</h2>
+                </div>
                 <div class="user-info">
                     <span>Admin</span>
                     <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
                 </div>
             </header>
+
+            <div class="stats-grid">
+                <div class="stat-panel glass-panel">
+                    <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                    <div>
+                        <p data-i18n="admin.total_students">O'quvchilar</p>
+                        <strong id="studentsCount">128</strong>
+                    </div>
+                </div>
+                <div class="stat-panel glass-panel">
+                    <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <div>
+                        <p data-i18n="admin.total_teachers">O'qituvchilar</p>
+                        <strong id="teachersCount">22</strong>
+                    </div>
+                </div>
+                <div class="stat-panel glass-panel">
+                    <div class="stat-icon"><i class="fa-solid fa-users-rectangle"></i></div>
+                    <div>
+                        <p data-i18n="admin.total_groups">Guruhlar</p>
+                        <strong id="groupsCount">14</strong>
+                    </div>
+                </div>
+                <div class="stat-panel glass-panel">
+                    <div class="stat-icon"><i class="fa-solid fa-door-open"></i></div>
+                    <div>
+                        <p data-i18n="admin.total_rooms">Xonalar</p>
+                        <strong id="roomsCount">8</strong>
+                    </div>
+                </div>
+            </div>
 
             <div class="activity-panel glass-panel">
                 <div class="activity-header">
@@ -147,7 +181,7 @@
                 </div>
                 <div class="form-container glass-panel" style="max-width:400px;">
                     <form id="changePasswordForm">
-                        <div class="input-group">*
+                        <div class="input-group">
                             <label data-i18n="admin.old_password">Eski parol</label>
                             <input type="password" id="oldPassword" data-i18n-placeholder="admin.old_password_placeholder" required>
                         </div>
